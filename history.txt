@@ -1,0 +1,95 @@
+Version 1.4.1 2013-08-27
+    Bug: Removed empty line in OrderHistory.php
+    Bug: Fixed SSystemLanguage.php
+    Bug: Fixed admin profile creation after install.
+
+Version 1.4 2013-08-06
+    Bug: Fixed auto_decrease_quantity import.
+    Bug: Fixed configurable_data on order update.
+    Bug: Fixed CsvImporter array_shift call.
+    Bug: Fixed submitting form by pressing `Enter` in notifications module.
+    Bug: Fixed payment system config form render in admin panel.
+    Bug: Fixed reply email address in notifier module.
+    Bug: Fixed file uploading bug.
+    Bug: Fixed additional images css code.
+    Bug: Fixed order delivery price.
+    Bug: Removed CHtml::encode from delivery description.
+    Bug: Fixed pagination in pages module.
+    Bug: Fixed recount total price on add/remove ordered product.
+    Bug: Fixed link to comment edit on product update.
+    Bug: Fixed default datepicker language.
+    Bug: Fixed rights module preFilter.
+    Bug: Fixed build path on windows system in systemModules and systemMenu classes.
+    Bug: Display only active delivery methods on cart
+    Bug: Fixed SHttpRequest language select.
+    Bug: Fixed submitting form by pressing Enter.
+    Bug: Fixed manufacturer total products count in filter.
+    Bug: Fixed render attribute table with no attribute options.
+    Enh: Added E_STRICT to dev mode.
+    Enh: Updated Yii to 1.1.13.
+    Enh: Added ajax counters for orders and comments.
+    Enh: Added personal discount for users.
+    Enh: Added discount for roles.
+    Enh: Added personal discount for products.
+    Enh: Optimized DiscountBehavior - cache product categories.
+    Enh: Added sitemap module.
+    Enh: Added discount for order.
+    Enh: Added ability to set image alt.
+    Enh: Added ability to mass assign product categories.
+    Enh: Added banned option to users.
+    Enh: Cache module route files.
+    Enh: Optimized events manager.
+    Enh: Enabled browser history for grid view.
+    Enh: Added products duplicator.
+    Enh: Added admin comment to orders.
+    Enh: Submit forms by pressing ctrl+s.
+    Enh: Added order history tab.
+    Enh: Added user additional info on update and order edit.
+    Enh: Updated chosen to v0.14.0
+
+Version 1.3 2013-04-07
+    Bug: Fixed statistics module.
+    Bug: Fixed total price in new order email message.
+    Bug: Fixed adding first product to wishlist.
+    Bug: Fixed double slash in thumb image url.
+    Bug: Fixed product thumb uploading.
+    Bug: Fixed sgridview custom actions.
+    Enh: Sort orders list by created desc.
+    Enh: Removed ajax mode from products list.
+    Enh: Added autofocus to admin login form.
+
+Version 1.2 2013-02-25
+    Bug: Fixed product attributes validating for required value.
+    Bug: Fixed store module language events.
+    Bug: Fixed creating products with some variants.
+    Bug: Fixed displaying text based attributes on product view and compare pages.
+    Bug: Fixed installing without demo data.
+    Bug: Fixed product quantity adding to cart.
+    Bug: Fixed Yandex market XML export.
+    Bug: Fixed csv file validating.
+    Enh: Added Qiwi payment module.
+    Enh: Send email for new orders.
+    Enh: Replaced tinymce with elrte + elfinder.
+    Enh: Added ability to configure WYSIWYG editor settings from admin panel.
+    Enh: Added Chosen widget to product attributes page.
+    Enh: Added notifier module
+    Enh: Added description field to store category.
+    Enh: View manufacturer by link /manufacturer/<url>.
+    Enh: Added ability to add new attribute options directly from variations tab.
+    Enh: Added ability to add new attribute options directly from attributes tab.
+    Enh: Added statistics module.
+
+Version 1.1 2012-08-04
+    Bug: Fixed additional attributes validation on products update.
+    Bug: Fixed behaviors signatures.
+    Bug: Fixed products search and changing per page limits.
+    Bug: Fixed error view on production mode.
+    Bug: Fixed product discount display on different currencies.
+    Bug: Added title to compare and wishlist buttons.
+    Bug: Fixed user account creating from admin panel.
+    Enh: Added client side validation for comments form.
+    Enh: Added ability to change theme from admin panel.
+    Enh: Feedback1 module - personal data automatically populated for authorized users.
+
+Version 1.0 2012-07-23
+    Initial release.
