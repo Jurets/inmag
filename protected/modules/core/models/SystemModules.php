@@ -171,7 +171,8 @@ class SystemModules extends BaseModel
 	 * @return boolean
 	 */
 	public static function install($name)
-	{DebugBreak();
+	{
+        
 		$model = new SystemModules;
 		$model->name = $name;
 		$model->enabled = true;
