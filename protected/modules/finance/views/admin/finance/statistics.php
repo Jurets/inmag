@@ -68,13 +68,16 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
             array(
                 'name'=>'role',
                 'type'=>'raw',
-                'value'=>'UserFinance::getRoleName($data->role)',
+                //'value'=>'UserFinance::getRoleText($data->role)',
+                'value'=>'$data->roleName',
                 'filter'=>UserFinance::getRoleNames()
             ),
             array(
                 'name'=>'type',
                 'type'=>'raw',
-                'value'=>'Operation::getOperationName($data->role, $data->type)',
+                //'value'=>'Operation::getOperationName($data->role, $data->type)',
+                'value'=>'$data->operationName',
+                //'filter'=>Operation::getRoleNames()
             ),
             array(
                 'name'=>'amount',

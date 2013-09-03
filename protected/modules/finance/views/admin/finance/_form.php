@@ -19,7 +19,9 @@ return array(
                     'disabled'=>'disabled',
 				),
 //                'email'=>array('type'=>'text',),
-                'role'=>array('type'=>'text','disabled'=>'disabled',/*'value'=>UserFinance::getRoleName($data->role)*/),
+                //'role'=>array('type'=>'text','disabled'=>'disabled'/*, 'value'=>$model->roleName*/),
+                'roleName'=>array('type'=>'text','disabled'=>'disabled'),
+                //'role'=>array('type'=>'hidden'),
 				'balance'=>array('type'=>'text','disabled'=>'disabled'),
 //                'deposit'=>array('type'=>'text'),
 //				'created_at'=>array(
@@ -48,6 +50,9 @@ return array(
             'type'=>'form',
             'title'=>'',
             'elements'=>array(
+                'user_id'=>array('type'=>'hidden'),
+                'role'=>array('type'=>'hidden'),
+                'type'=>array('type'=>'hidden'),
                 'amount'=>array('type'=>'text'),
             ),
         ),
