@@ -43,7 +43,7 @@ class Operation extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('created', 'default', 'value'=>CTimestamp::formatDate('Y-m-d H:i:s')),
-            array('created, user_id, role, type', 'required'),
+            array('created, user_id, role, type, amount', 'required'),
 			array('role, type', 'numerical', 'integerOnly'=>true),
 			array('amount', 'numerical'),
 			array('user_id', 'length', 'max'=>11),
@@ -153,7 +153,7 @@ class Operation extends CActiveRecord
     }
 
     //
-    public function getOperationName() 
+    public function getOperationName()
     {
         if ($this->role == 3 && $this->type == 1)
             $opname = Yii::t('FinanceModule.core', 'Charge the worker account');

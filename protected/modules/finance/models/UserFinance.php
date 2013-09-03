@@ -27,6 +27,7 @@ class UserFinance extends User
     public function rules()
     {
         return CMap::mergeArray(parent::rules(), array(
+            array('roleName', 'safe'),
             array('role, balance, id', 'numerical'),
             array('role, balance, operation', 'safe', 'on'=>'search'),
         ));
@@ -37,6 +38,7 @@ class UserFinance extends User
         return CMap::mergeArray(parent::attributeLabels(), array(
             'balance' => Yii::t('FinanceModule.core', 'Balance'),
             'role'    => Yii::t('FinanceModule.core', 'Role'),
+            'roleName'=> Yii::t('FinanceModule.core', 'Role'),
         ));        
     }
     
@@ -68,6 +70,23 @@ class UserFinance extends User
             //Yii::t('FinanceModule.core', 'Admin'),
             3=>Yii::t('FinanceModule.core', 'Worker'),
             4=>Yii::t('FinanceModule.core', 'Customer'),
+        );
+    }
+    
+    public function defaultScope() {
+        return array(
+            'order' => 'id',
+        );
+    }
+
+    public function scopes() {
+        return array(
+            'nosystem' => array(
+                'condition' => 'id <> :id',
+                'params' => array(
+                    ':id' => self::SYSTEM_ID,
+                )
+            )
         );
     }
     

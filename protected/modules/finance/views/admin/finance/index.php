@@ -39,6 +39,9 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
         ),
     ));
 */
+    //DebugBreak();
+    $systemBalance = $system->balance;
+
     $this->widget('ext.sgridview.SGridView', array(
         'dataProvider'=>$dataProvider,
         'id'=>'usersListGrid',
@@ -53,29 +56,17 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
                 'type'=>'raw',
 //                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
             ),
-//           'email',
-//            'discount',
-//            array(
-//                'name'=>'created_at',
-//            ),
             array(
                 'name'=>'banned',
                 'filter'=>array(1=>Yii::t('FinanceModule.admin', 'Да'), 0=>Yii::t('FinanceModule.admin', 'Нет')),
                 'value'=>'$data->banned ? Yii::t("FinanceModule.admin", "Да") : Yii::t("FinanceModule.admin", "Нет")'
             ),
-//            array(
-//                'name'=>'last_login',
-//            ),
-//            array(
-//                'name'=>'username',
-//                'type'=>'raw',
-////                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
-//            ),
             array(
                 'name'=>'role',
                 'type'=>'raw',
                 'filter'=>array(UserFinance::ROLE_CUSTOMER => Yii::t('FinanceModule.core', 'Заказчик'), UserFinance::ROLE_WORKER => Yii::t('FinanceModule.core', 'Исполнитель')),
 //                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
+                'value'=>'$data->roleName',
             ),
             array(
                 'name'=>'balance',
@@ -85,20 +76,27 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
             ),
             array(
                 'class'=>'CButtonColumn',
-                'template'=>'{plus}{minus}',
+                'htmlOptions' => array('style' => 'width: 200px;'),
+                'template'=>'{plus} {minus}',
                 'buttons'=>array(
                     'plus'=>array(
-                        'label'=>Yii::t('FinanceModule.core', 'Пополнение'),
-//                        'url'=>Yii::app()->createUrl('finance/admin/finance/operations/', array('operation'=>UserFinance::OPERATION_DEPOSIT, 'user_id'=>2)),
+                        //'visible' => '($data->role == UserFinance::ROLE_CUSTOMER) || (($data->role == UserFinance::ROLE_WORKER) && ('. $systemBalance . ' > 0))',
+                        'visible' => '$data->role == UserFinance::ROLE_CUSTOMER ? true : ($data->role == UserFinance::ROLE_WORKER ? '. $systemBalance . ' > 0 : false)',
+                        //'visible' => '$data->role == UserFinance::ROLE_WORKER && '. $systemBalance . ' > 0',
+                        //'label'=>$data->role == UserFinance::ROLE_CUSTOMER ? Yii::t("FinanceModule.core", "Пополнить извне") : Yii::t("FinanceModule.core", "Пополнить из системы"),
+                        'label'=>Yii::t("FinanceModule.core", "Пополнить"),
                         'url'=>'Yii::app()->createUrl("finance/admin/finance/operationView/", array("operation"=>UserFinance::OPERATION_DEPOSIT, "user_id"=>$data->id))',
                     ),
                     'minus'=>array(
-                        'label'=>Yii::t('FinanceModule.core', 'Снятие'),
-                        'imageUrl'=>Yii::app()->createUrl('/protected/modules/finance/assets/img/icons.png'),
+                        'visible' => '$data->balance > 0 && ($data->role == UserFinance::ROLE_CUSTOMER || $data->role == UserFinance::ROLE_WORKER)',
+                        //'label'=>Yii::t('FinanceModule.core', 'Снятие'),
+                        //'label'=>$data->role == UserFinance::ROLE_CUSTOMER ? Yii::t("FinanceModule.core", "Списать в систему") : Yii::t("FinanceModule.core", "Вывести"),
+                        'label'=>Yii::t("FinanceModule.core", "Списать"),
+                        //'imageUrl'=>Yii::app()->createUrl('/protected/modules/finance/assets/img/icons.png'),
                         'url'=>'Yii::app()->createUrl("finance/admin/finance/operationView/", array("operation"=>UserFinance::OPERATION_WITHDRAW, "user_id"=>$data->id))',
-                        'options'=>array(
-                            'class'=>'image-button-position-up',
-                        ),
+                        //'options'=>array(
+                        //    'class'=>'image-button-position-up',
+                        //),
                     ),
                 ),
             ),
