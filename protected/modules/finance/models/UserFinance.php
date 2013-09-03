@@ -38,5 +38,14 @@ class UserFinance extends User
         }
         return $rolename;
     }
+
+    public static function getRoleNames() 
+    {
+        return array(
+            //Yii::t('FinanceModule.core', 'Admin'),
+            3=>Yii::t('FinanceModule.core', 'Worker'),
+            4=>Yii::t('FinanceModule.core', 'Customer'),
+        );
+    }
     
 }
