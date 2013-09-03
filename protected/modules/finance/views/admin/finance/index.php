@@ -1,5 +1,13 @@
+<style type="text/css">
+.image-button-position-up img{
+     
+     width: 14px;
+     height: 14px;
+     background-position: -192px -144px;
+}
+</style>
 <?php
-
+//DebugBreak();
 /**
  * Display finance list
  *
@@ -45,24 +53,24 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
                 'type'=>'raw',
 //                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
             ),
-           'email',
-            'discount',
-            array(
-                'name'=>'created_at',
-            ),
+//           'email',
+//            'discount',
+//            array(
+//                'name'=>'created_at',
+//            ),
             array(
                 'name'=>'banned',
                 'filter'=>array(1=>Yii::t('FinanceModule.admin', 'Да'), 0=>Yii::t('FinanceModule.admin', 'Нет')),
                 'value'=>'$data->banned ? Yii::t("FinanceModule.admin", "Да") : Yii::t("FinanceModule.admin", "Нет")'
             ),
-            array(
-                'name'=>'last_login',
-            ),
-            array(
-                'name'=>'username',
-                'type'=>'raw',
-//                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
-            ),
+//            array(
+//                'name'=>'last_login',
+//            ),
+//            array(
+//                'name'=>'username',
+//                'type'=>'raw',
+////                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
+//            ),
             array(
                 'name'=>'role',
                 'type'=>'raw',
@@ -72,20 +80,25 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
             array(
                 'name'=>'balance',
                 'type'=>'raw',
+                'filter'=>false,
 //                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
             ),
             array(
                 'class'=>'CButtonColumn',
-                'template'=>'{update}{delete}',
+                'template'=>'{plus}{minus}',
                 'buttons'=>array(
-                    'update'=>array(
+                    'plus'=>array(
                         'label'=>Yii::t('FinanceModule.core', 'Пополнение'),
 //                        'url'=>Yii::app()->createUrl('finance/admin/finance/operations/', array('operation'=>UserFinance::OPERATION_DEPOSIT, 'user_id'=>2)),
                         'url'=>'Yii::app()->createUrl("finance/admin/finance/operationView/", array("operation"=>UserFinance::OPERATION_DEPOSIT, "user_id"=>$data->id))',
                     ),
-                    'delete'=>array(
+                    'minus'=>array(
                         'label'=>Yii::t('FinanceModule.core', 'Снятие'),
+                        'imageUrl'=>Yii::app()->createUrl('/protected/modules/finance/assets/img/icons.png'),
                         'url'=>'Yii::app()->createUrl("finance/admin/finance/operationView/", array("operation"=>UserFinance::OPERATION_WITHDRAW, "user_id"=>$data->id))',
+                        'options'=>array(
+                            'class'=>'image-button-position-up',
+                        ),
                     ),
                 ),
             ),
