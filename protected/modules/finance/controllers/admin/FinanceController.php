@@ -5,27 +5,8 @@
  */
 class FinanceController extends SAdminController
 {
-
-	/**
-	 * Display all site finance
-	 */
-	public function actionIndex()
-	{
-        $model = new Operation('search');
-
-        if(!empty($_GET['Operation']))
-            $model->attributes = $_GET['Operation'];
-
-        $dataProvider = $model->search();
-        $dataProvider->pagination->pageSize = Yii::app()->settings->get('core', 'productsPerPageAdmin');
-
-        $this->render('statistics', array(
-            'model'=>$model,
-            'dataProvider'=>$dataProvider
-        ));
-	}
     
-    public function actionOperations()
+    public function actionIndex()
     {
 //        DebugBreak();
         $model = new UserFinance('search');
@@ -51,37 +32,39 @@ class FinanceController extends SAdminController
     public function actionOperationView()
     {
 //        DebugBreak();
-        $model = CActiveRecord::model('UserFinance')->findByPk($_GET['user_id']);
+        $model = UserFinance::model()->findByPk($_GET['user_id']);
+        $operation = new Operation();
 
         if (!$model)
             throw new CHttpException(400, 'Bad request.');
 
-        $form = new SAdminForm('application.modules.users.views.admin.default.userForm', $model);
+        $form = new SAdminForm('application.modules.finance.views.admin.finance._form', $model);
 
-        $form['userfinance']->model = $model;
+        $form['UserFinance']->model = $model;
         $form['profile']->model = $model->profile;
+        $form['operation']->model = $operation;
 
         if(Yii::app()->request->isPostRequest)
         {
-            $model->attributes = $_POST['UserFinance'];
-            $model->profile->attributes = $_POST['UserProfile'];
-
-            $valid = $model->validate() && $model->profile->validate();
-
-            if($valid)
-            {
-                $model->save();
-                if(!$model->profile->user_id)
-                    $model->profile->user_id=$model->id;
-                $model->profile->save();
-
-                $this->setFlashMessage(Yii::t('FinanceModule.core', 'Изменения успешно сохранены'));
-
-                if (isset($_POST['REDIRECT']))
-                    $this->smartRedirect($model);
-                else
-                    $this->redirect(array('index'));
-            }
+//            $model->attributes = $_POST['UserFinance'];
+//            $model->profile->attributes = $_POST['UserProfile'];
+//
+//            $valid = $model->validate() && $model->profile->validate();
+//
+//            if($valid)
+//            {
+//                $model->save();
+//                if(!$model->profile->user_id)
+//                    $model->profile->user_id=$model->id;
+//                $model->profile->save();
+//
+//                $this->setFlashMessage(Yii::t('FinanceModule.core', 'Изменения успешно сохранены'));
+//
+//                if (isset($_POST['REDIRECT']))
+//                    $this->smartRedirect($model);
+//                else
+//                    $this->redirect(array('index'));
+//            }
         }
 
         $this->render('view', array(
