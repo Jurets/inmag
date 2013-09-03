@@ -33,10 +33,23 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
         ),
     ));
 */
+    $dateFilter = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+        'name'=>'Operation[created]',
+        'value'=>$model->created,
+        'options'=>array(
+            'dateFormat'=>'yy-mm-dd'/*.date('H:i:s')*/,
+        ),
+        'htmlOptions' => array(
+            'id'=>'Operation_created',
+            //'style'=>'background-image: url("../images/calendar.png");'
+        ),
+    ), true);
+    
     $this->widget('ext.sgridview.SGridView', array(
         'dataProvider'=>$dataProvider,
         'id'=>'operationsListGrid',
         'filter'=>$model,
+        'afterAjaxUpdate' => 'reinstallDatePicker',
         'columns'=>array(
             array(
                 'class'=>'SGridIdColumn',
@@ -44,6 +57,7 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
             ),
             array(
                 'name'=>'created',
+                'filter'=>$dateFilter,
             ),
             array(
                 'name'=>'username',
@@ -55,6 +69,7 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
                 'name'=>'role',
                 'type'=>'raw',
                 'value'=>'UserFinance::getRoleName($data->role)',
+                'filter'=>UserFinance::getRoleNames()
             ),
             array(
                 'name'=>'type',
@@ -68,5 +83,12 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
             ),
         ),
     ));
+
+
+Yii::app()->clientScript->registerScript('re-install-date-picker', "
+        function reinstallDatePicker(id, data) {
+            $('#Operation_created').datepicker({dateFormat: 'yy-mm-dd'});
+        }
+    ");
     
 ?>

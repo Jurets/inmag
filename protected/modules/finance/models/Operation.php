@@ -93,12 +93,12 @@ class Operation extends CActiveRecord
 		$criteria=new CDbCriteria;
         
         $criteria->with = array('user');
-
+        
 		$criteria->compare('id',$this->id);
 		$criteria->compare('created',$this->created,true);
 		//$criteria->compare('user_id',$this->user_id);
         $criteria->compare('username',$this->username,true);
-		$criteria->compare('role',$this->role);
+		$criteria->compare('t.role',$this->role);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('amount',$this->amount);
 		$criteria->compare('comment',$this->comment,true);
