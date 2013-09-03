@@ -109,4 +109,54 @@ class FinanceController extends SAdminController
         ));
     }
     
+    public function actionProcess() {
+        $model = New Operation;
+        $model->attributes = $_POST['Operation'];
+        
+        //begin validation
+        if ($model->validate()) {
+            //get model of user of operation
+            $user = User::model()->findByPk($model->user_id);  
+            //get model of system user
+            $system = User::model()->findByPk(UserFinance::SYSTEM_ID);
+
+            //define source of operation
+            if ($model->role == 3 && $model->type == 1)  
+                $source = $system;    
+            else if ($model->role == 4 && $model->type == 2)
+                $source = $user;
+            else if ($model->role == 3 && $model->type == 2)
+                $source = $user;
+                
+            //check source account amount
+            if ($source->balance < $model->amount)
+                $model->addError('balance', 'Баланса источника не хватает для выполнения операции');
+        }
+        
+        //do operation in DB
+        $transaction = Yii::app()->db->beginTransaction();
+        try {       
+            //process money transfer between accounts
+            if ($model->role == 3 && $model->type == 1) {          //from system to worker (3)
+                $system->balance -= $model->amount;
+                $user->balance   += $model->amount;
+            } else if ($model->role == 3 && $model->type == 2){    //from worker to outside (4)
+                $user->balance   -= $model->amount;
+            } else if ($model->role == 4 && $model->type == 1){    //from outside to customer (1)
+                $user->balance   += $model->amount;
+            } else if ($model->role == 4 && $model->type == 2){    //from customer to system (2)
+                $user->balance   -= $model->amount;
+                $system->balance += $model->amount;
+            }
+            
+            //try to save operation to table
+            if (!$model->save(false))
+                throw New Exception('Ошибка при сохранении операции');
+
+            $transaction->commit();           
+        }
+        catch(Exception $e){
+            $transaction->rollback();
+        }        
+    }
 }

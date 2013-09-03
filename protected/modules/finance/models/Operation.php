@@ -42,7 +42,8 @@ class Operation extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('created, user_id, role, type', 'required'),
+			array('created', 'default', 'value'=>CTimestamp::formatDate('Y-m-d H:i:s')),
+            array('created, user_id, role, type', 'required'),
 			array('role, type', 'numerical', 'integerOnly'=>true),
 			array('amount', 'numerical'),
 			array('user_id', 'length', 'max'=>11),
@@ -126,8 +127,19 @@ class Operation extends CActiveRecord
         return $sort;
     }
     
+    public function getRoleName() 
+    {
+        switch ($this->role) {
+            case UserFinance::ROLE_MODERATOR: $rolename = Yii::t('FinanceModule.core', 'Admin'); break;
+            case UserFinance::ROLE_WORKER: $rolename = Yii::t('FinanceModule.core', 'Worker'); break;
+            case UserFinance::ROLE_CUSTOMER: $rolename = Yii::t('FinanceModule.core', 'Customer'); break;
+            default: $rolename = Yii::t('FinanceModule.core', 'Unknown');
+        }
+        return $rolename;
+    }
+    
     //
-    public static function getOperationName($role, $type) 
+    public static function getOperationText($role, $type) 
     {
         if ($role == 3 && $type == 1)
             $opname = Yii::t('FinanceModule.core', 'Charge the worker account');
@@ -136,6 +148,20 @@ class Operation extends CActiveRecord
         else if ($role == 4 && $type == 1)
             $opname = Yii::t('FinanceModule.core', 'Charge the customer account');
         else if ($role == 4 && $type == 2)
+            $opname = Yii::t('FinanceModule.core', 'Debit the customer account');
+        return $opname;
+    }
+
+    //
+    public function getOperationName() 
+    {
+        if ($this->role == 3 && $this->type == 1)
+            $opname = Yii::t('FinanceModule.core', 'Charge the worker account');
+        else if ($this->role == 3 && $this->type == 2)
+            $opname = Yii::t('FinanceModule.core', 'Debit the worker account');
+        else if ($this->role == 4 && $this->type == 1)
+            $opname = Yii::t('FinanceModule.core', 'Charge the customer account');
+        else if ($this->role == 4 && $this->type == 2)
             $opname = Yii::t('FinanceModule.core', 'Debit the customer account');
         return $opname;
     }
