@@ -11,10 +11,12 @@ class UserFinance extends User
     const OPERATION_DEPOSIT = 1;   //пополнение счета 
     const OPERATION_WITHDRAW = 2; //снятие со счета
     
+    public $operation;
+    
     public function rules()
     {
         return CMap::mergeArray(parent::rules(), array(
-            array('role, balance', 'safe', 'on'=>'search'),
+            array('role, balance, operation', 'safe', 'on'=>'search'),
         ));
     }
     

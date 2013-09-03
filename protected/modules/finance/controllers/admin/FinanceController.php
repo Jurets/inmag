@@ -11,7 +11,7 @@ class FinanceController extends SAdminController
 	 */
 	public function actionIndex()
 	{
-        DebugBreak();
+//        DebugBreak();
 //		$model = new Rating('searchProduct');
 //
 //		if(!empty($_GET['Rating']))
@@ -27,14 +27,9 @@ class FinanceController extends SAdminController
         $this->render('index');
 	}
     
-    /**
-    * put your comment there...
-    * 
-    * @param mixed $opId
-    */    
-    public function actionOperations($opId)
+    public function actionOperations()
     {
-        DebugBreak();
+//        DebugBreak();
         $model = new UserFinance('search');
         $model->unsetAttributes();
 
@@ -46,12 +41,17 @@ class FinanceController extends SAdminController
         
 //        Yii::import('application.modules.core.CoreModule');
 //        $modelSystem = new SystemSettingsForm;
-        $form = new STabbedForm('_form', $model);
+//        $form = new STabbedForm('_form', $model);
 //        $form = new CTabView('_form', $model);
         $this->render('index', array(
             'model'=>$model,
             'dataProvider'=>$dataProvider,
-            'form'=>$form,            
+//            'form'=>$form,
         ));
+    }
+    
+    public function actionOperationView()
+    {
+        
     }
 }

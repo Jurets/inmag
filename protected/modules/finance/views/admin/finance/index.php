@@ -6,8 +6,6 @@
  * @var $model Finance
  **/
 
-//Yii::app()->clientScript->registerScriptFile($this->module->assetsUrl.'/admin/rating.index.js');
-
 $this->pageHeader = Yii::t('FinanceModule.core', 'Операции');
 
 $this->breadcrumbs = array(
@@ -15,9 +13,7 @@ $this->breadcrumbs = array(
 	Yii::t('FinanceModule.core', 'Операции'),
 );
 ?>
-<div class="form wide padding-all">
-    <?php echo $form->asTabs(); ?>
-</div>
+
 <?
 /*
 $this->sidebarContent = $this->renderPartial('/_menu', null, true);
@@ -34,7 +30,7 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
             ),
         ),
     ));
-
+*/
     $this->widget('ext.sgridview.SGridView', array(
         'dataProvider'=>$dataProvider,
         'id'=>'usersListGrid',
@@ -47,7 +43,7 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
             array(
                 'name'=>'username',
                 'type'=>'raw',
-                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
+//                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
             ),
            'email',
             'discount',
@@ -65,11 +61,12 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
             array(
                 'name'=>'username',
                 'type'=>'raw',
-                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
+//                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
             ),
             array(
                 'name'=>'role',
                 'type'=>'raw',
+                'filter'=>array(UserFinance::ROLE_CUSTOMER => Yii::t('FinanceModule.core', 'Заказчик'), UserFinance::ROLE_WORKER => Yii::t('FinanceModule.core', 'Исполнитель')),
 //                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
             ),
             array(
@@ -80,7 +77,18 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
             array(
                 'class'=>'CButtonColumn',
                 'template'=>'{update}{delete}',
+                'buttons'=>array(
+                    'update'=>array(
+                        'label'=>Yii::t('FinanceModule.core', 'Пополнение'),
+//                        'url'=>Yii::app()->createUrl('finance/admin/finance/operations/', array('operation'=>UserFinance::OPERATION_DEPOSIT, 'user_id'=>2)),
+                        'url'=>'Yii::app()->createUrl("finance/admin/finance/operationView/", array("operation"=>UserFinance::OPERATION_DEPOSIT, "user_id"=>$data->id))',
+                    ),
+                    'delete'=>array(
+                        'label'=>Yii::t('FinanceModule.core', 'Снятие'),
+                        'url'=>'Yii::app()->createUrl("finance/admin/finance/operationView/", array("operation"=>UserFinance::OPERATION_WITHDRAW, "user_id"=>$data->id))',
+                    ),
+                ),
             ),
         ),
     ));
-    */
+    
