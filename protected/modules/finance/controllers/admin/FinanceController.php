@@ -11,19 +11,18 @@ class FinanceController extends SAdminController
 	 */
 	public function actionIndex()
 	{
-//        DebugBreak();
-//		$model = new Rating('searchProduct');
-//
-//		if(!empty($_GET['Rating']))
-//			$model->attributes = $_GET['Rating'];
-//
-//		$dataProvider = $model->searchProduct();
-//		$dataProvider->pagination->pageSize = Yii::app()->settings->get('core', 'productsPerPageAdmin');
-//
-//		$this->render('index', array(
-//			'model'=>$model,
-//			'dataProvider'=>$dataProvider
-//		));
+        $model = new Operation('search');
+
+        //if(!empty($_GET['Operation']))
+        //    $model->attributes = $_GET['Operation'];
+
+        $dataProvider = $model->search();
+        $dataProvider->pagination->pageSize = Yii::app()->settings->get('core', 'productsPerPageAdmin');
+
+        $this->render('statistics', array(
+            'model'=>$model,
+            'dataProvider'=>$dataProvider
+        ));
         $this->render('index');
 	}
     

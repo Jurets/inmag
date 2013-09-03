@@ -14,10 +14,24 @@
  * @version $Id: $
  */
 return array (
-  'Name' => 'Название товара',
-  'Param1' => 'Параметр 1',
-  'Param2' => 'Параметр 2',
-  'Param3' => 'Параметр 3',
-  'Sum of Params' => 'Сумма',
+  'User' => 'Пользователь',
+  'Balance' => 'Баланс',
+  'Role' => 'Роль',
+  'Amount' => 'Сумма',
+  'Created' => 'Создан',
   'Avg of Params' => 'Среднее',
+  'Type' => 'Тип',
+  'Comment' => 'Комментарий',
+  'Statistics' => 'Статистика',
+
+  'Admin' => 'Админ',
+  'Customer' => 'Заказчик',
+  'Worker' => 'Исполнитель',
+  'Unknown' => 'неизвестен',
+  
+  'Charge the worker account' => 'Пополнение счета исполнителя',
+  'Debit the worker account' => 'Снятие со счета исполнителя',
+  'Charge the customer account' => 'Пополнение счета заказчика',
+  'Debit the customer account' => 'Снятие со счета заказчика',
+  
 );
