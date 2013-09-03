@@ -51,6 +51,43 @@ class FinanceController extends SAdminController
     
     public function actionOperationView()
     {
-        
+//        DebugBreak();
+        $model = CActiveRecord::model('UserFinance')->findByPk($_GET['user_id']);
+
+        if (!$model)
+            throw new CHttpException(400, 'Bad request.');
+
+        $form = new SAdminForm('application.modules.users.views.admin.default.userForm', $model);
+
+        $form['userfinance']->model = $model;
+        $form['profile']->model = $model->profile;
+
+        if(Yii::app()->request->isPostRequest)
+        {
+            $model->attributes = $_POST['UserFinance'];
+            $model->profile->attributes = $_POST['UserProfile'];
+
+            $valid = $model->validate() && $model->profile->validate();
+
+            if($valid)
+            {
+                $model->save();
+                if(!$model->profile->user_id)
+                    $model->profile->user_id=$model->id;
+                $model->profile->save();
+
+                $this->setFlashMessage(Yii::t('FinanceModule.core', 'Изменения успешно сохранены'));
+
+                if (isset($_POST['REDIRECT']))
+                    $this->smartRedirect($model);
+                else
+                    $this->redirect(array('index'));
+            }
+        }
+
+        $this->render('view', array(
+            'model'=>$model,
+            'form'=>$form,
+        ));
     }
 }
