@@ -33,7 +33,8 @@ class FinanceController extends SAdminController
     {
 //        DebugBreak();
         $model = UserFinance::model()->findByPk($_GET['user_id']);
-        $operation = new Operation();
+        $operationModel = new Operation();
+        $operation = $_GET['operation'];
 
         if (!$model)
             throw new CHttpException(400, 'Bad request.');
@@ -42,7 +43,7 @@ class FinanceController extends SAdminController
 
         $form['UserFinance']->model = $model;
         $form['profile']->model = $model->profile;
-        $form['operation']->model = $operation;
+        $form['operation']->model = $operationModel;
 
         if(Yii::app()->request->isPostRequest)
         {
@@ -69,6 +70,8 @@ class FinanceController extends SAdminController
 
         $this->render('view', array(
             'model'=>$model,
+            'operationModel'=>$operationModel,
+            'operation'=>$operation,
             'form'=>$form,
         ));
     }

@@ -106,11 +106,13 @@
 					/
 					<?php echo CHtml::link(Yii::t('core','Регистрация'), array('/users/register'), array('class'=>'light')) ?>
 				<?php else: ?>
-					<?php echo CHtml::link(Yii::t('core','Личный кабинет'), array('/users/profile/index'), array('class'=>'light')) ?>
+                    <?php echo CHtml::link(Yii::t('core','Выход'), array('/users/login/logout'), array('class'=>'light')) ?>
+                    <br>
+                    <?php echo CHtml::link(Yii::t('core','Статистика'), array('/users/finance'), array('class'=>'light')) ?>
+                    /
+                    <?php echo CHtml::link(Yii::t('core','Личный кабинет'), array('/users/profile/index'), array('class'=>'light')) ?>
 					/
 					<?php echo CHtml::link(Yii::t('core','Мои заказы'), array('/users/profile/orders'), array('class'=>'light')) ?>
-					/
-					<?php echo CHtml::link(Yii::t('core','Выход'), array('/users/login/logout'), array('class'=>'light')) ?>
 				<?php endif; ?>
 			</div>
 
