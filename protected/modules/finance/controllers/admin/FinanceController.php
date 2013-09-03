@@ -13,8 +13,8 @@ class FinanceController extends SAdminController
 	{
         $model = new Operation('search');
 
-        //if(!empty($_GET['Operation']))
-        //    $model->attributes = $_GET['Operation'];
+        if(!empty($_GET['Operation']))
+            $model->attributes = $_GET['Operation'];
 
         $dataProvider = $model->search();
         $dataProvider->pagination->pageSize = Yii::app()->settings->get('core', 'productsPerPageAdmin');
@@ -23,7 +23,6 @@ class FinanceController extends SAdminController
             'model'=>$model,
             'dataProvider'=>$dataProvider
         ));
-        $this->render('index');
 	}
     
     public function actionOperations()
@@ -53,4 +52,24 @@ class FinanceController extends SAdminController
     {
         
     }
+    
+    /**
+     * Display all site finance
+     */
+    public function actionStatistics()
+    {
+        $model = new Operation('search');
+
+        if(!empty($_GET['Operation']))
+            $model->attributes = $_GET['Operation'];
+
+        $dataProvider = $model->search();
+        $dataProvider->pagination->pageSize = Yii::app()->settings->get('core', 'productsPerPageAdmin');
+
+        $this->render('statistics', array(
+            'model'=>$model,
+            'dataProvider'=>$dataProvider
+        ));
+    }
+    
 }
