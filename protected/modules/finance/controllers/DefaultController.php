@@ -16,13 +16,13 @@ class DefaultController extends Controller
     
     public function actionIndex()
     {
-//        DebugBreak();
         $userId = Yii::app()->user->id;
         $model = new Operation('search');
 
         $dataProvider = $model->search();
         $dataProvider->criteria->condition = 'user_id = '.$userId;
         $dataProvider->pagination->pageSize = Yii::app()->settings->get('core', 'productsPerPageAdmin');
+        
 
         $this->render('index', array(
             'model'=>$model,
