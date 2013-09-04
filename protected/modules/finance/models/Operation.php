@@ -43,14 +43,14 @@ class Operation extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('created', 'default', 'value'=>CTimestamp::formatDate('Y-m-d H:i:s')),
-            array('created, user_id, role, type, amount', 'required'),
+            array('created, user_id, role, type, amount, trans_id', 'required'),
 			array('role, type', 'numerical', 'integerOnly'=>true),
 			array('amount', 'numerical'),
 			array('user_id', 'length', 'max'=>11),
 			array('comment', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, created, user_id, role, type, amount, comment, username', 'safe', 'on'=>'search'),
+			array('id, created, user_id, role, type, amount, comment, username, trans_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -78,7 +78,8 @@ class Operation extends CActiveRecord
 			'role' => Yii::t('FinanceModule.core', 'Роль'),
 			'type' => Yii::t('FinanceModule.core', 'Тип Операции'),
 			'amount' => Yii::t('FinanceModule.core', 'Сумма'),
-			'comment' => Yii::t('FinanceModule.core', 'Коментарий'),
+            'comment' => Yii::t('FinanceModule.core', 'Коментарий'),
+			'trans_id' => Yii::t('FinanceModule.core', 'ID Транзакции'),
 		);
 	}
 

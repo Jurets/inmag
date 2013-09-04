@@ -7,7 +7,6 @@
 }
 </style>
 <?php
-//DebugBreak();
 /**
  * Display finance list
  *
@@ -83,7 +82,7 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
                     ),
                     
                     'work_in'=>array(
-                        'visible' => '($data->role == UserFinance::ROLE_WORKER ? '. $systemBalance . ' > 0',
+                        'visible' => '$data->role == UserFinance::ROLE_WORKER && '. $systemBalance . ' > 0',
                         'label'=>Yii::t("FinanceModule.core", "Пополнить"),
                         'url'=>'Yii::app()->createUrl("finance/admin/finance/operationView/", array("operation"=>UserFinance::OPERATION_DEPOSIT, "user_id"=>$data->id))',
                     ),

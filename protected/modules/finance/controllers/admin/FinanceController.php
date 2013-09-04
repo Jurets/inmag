@@ -33,9 +33,10 @@ class FinanceController extends SAdminController
     
     public function actionOperationView()
     {
-        //DebugBreak();
         $type = Yii::app()->request->getParam('operation');
         $model = UserFinance::model()->findByPk($_GET['user_id']);
+        $model->systemBalance = $model->getSystemBalance();
+        $model->operationType = $type;
         if (!$model)
             throw new CHttpException(400, 'Bad request.');
 
