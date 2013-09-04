@@ -6,6 +6,7 @@ class UserFinance extends User
 {
     const SYSTEM_ID = 0;
 
+    //const ROLE_SYSTEM = -1;
     const ROLE_MODERATOR = 1;
     const ROLE_WORKER = 3;
     const ROLE_CUSTOMER = 4;

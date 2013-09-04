@@ -20,33 +20,9 @@ return array(
 					'type'=>'text',
                     'disabled'=>'disabled',
 				),
-//                'email'=>array('type'=>'text',),
-                //'role'=>array('type'=>'text','disabled'=>'disabled'/*, 'value'=>$model->roleName*/),
                 'roleName'=>array('type'=>'text','disabled'=>'disabled'),
-                //'role'=>array('type'=>'hidden'),
                 'balance'=>array('type'=>'text','disabled'=>'disabled'),
 				'systemBalance'=>array('type'=>'text','disabled'=>'disabled'),                
-//                'deposit'=>array('type'=>'text'),
-//				'created_at'=>array(
-//					'type'=>'CJuiDatePicker',
-//					'options'=>array(
-//						'dateFormat'=>'yy-mm-dd '.date('H:i:s'),
-//					),
-//				),
-//				'last_login'=>array(
-//					'type'=>'CJuiDatePicker',
-//					'options'=>array(
-//						'dateFormat'=>'yy-mm-dd '.date('H:i:s'),
-//					),
-//				),
-//				'login_ip'=>array('type'=>'text',),
-//				'discount'=>array('type'=>'text',),
-//				'new_password'=>array(
-//					'type'=>'password',
-//				),
-//				'banned'=>array(
-//					'type'=>'checkbox'
-//				),               
 			),
 		),
         'operation'=>array(
@@ -61,27 +37,5 @@ return array(
                 'comment'=>array('type'=>'textarea'),
             ),
         ),
-//        'systemBalance'=>array(
-//            'type'=>'form',
-//            'title'=>'',
-//            'elements'=>array(
-//                'balance'=>array('type'=>'text'),
-//            ),
-//        ),        
-//		'profile'=>array(
-//			'type'=>'form',
-//			'title'=>'Данные профиля',
-//			'elements'=>array(
-//				'full_name'=>array(
-//					'type'=>'text',
-//				),
-//				'phone'=>array(
-//					'type'=>'text',
-//				),
-//				'delivery_address'=>array(
-//					'type'=>'textarea',
-//				),
-//			),
-//		),
 	),
 );

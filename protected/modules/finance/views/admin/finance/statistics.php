@@ -47,37 +47,31 @@ $this->breadcrumbs = array(
             array(
                 'name'=>'username',
                 'type'=>'raw',
-                //'value' => 'Chtml::encode($data->user->username)',
                 'value'=>'CHtml::link(CHtml::encode($data->user->username),array("update","id"=>$data->user_id))',
             ),
             array(
                 'name'=>'role',
                 'type'=>'raw',
-                //'value'=>'UserFinance::getRoleText($data->role)',
                 'value'=>'$data->roleName',
                 'filter'=>UserFinance::getRoleNames()
             ),
             array(
                 'name'=>'type',
                 'type'=>'raw',
-                //'value'=>'Operation::getOperationName($data->role, $data->type)',
                 'value'=>'$data->operationName',
                 //'filter'=>Operation::getRoleNames()
             ),
             array(
                 'name'=>'amount',
                 'type'=>'raw',
-//                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
             ),
             array(
                 'name'=>'trans_id',
                 'type'=>'raw',
-//                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
             ),
             array(
                 'name'=>'comment',
                 'type'=>'raw',
-//                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
             ),
         ),
     ));

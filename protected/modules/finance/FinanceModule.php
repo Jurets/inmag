@@ -22,31 +22,14 @@ class FinanceModule extends BaseModule
     * 
     */
     public function afterInstall()
-    {//DebugBreak();
+    {
         $db = Yii::app()->db;
-      //add new columns in table user
-        //$table_user = $db->schema->getTable('user');  //firstly define existing of table
-        //if (is_object($table_operation)) {
-            //$columnNames = is_object($table_operation) ? $table_user->columnNames : array();
-            //$rolecolumn = is_object($table_operation) ? $table_operation->getColumn('role') : null;
-            //$balancecolumn = is_object($table_operation) ? $table_operation->getColumn('balance') : null;
-        //} 
-        {
-            //if ($rolecolumn === null)
-            if (!$this->checkColumnExist('user', 'role'))
-                $db->createCommand()->addColumn('user', 'role', 'TINYINT(1) UNSIGNED NOT NULL');
-            //if ($balancecolumn === null)
-            if (!$this->checkColumnExist('user', 'balance'))
-                $db->createCommand()->addColumn('user', 'balance', 'FLOAT(10, 2)');
-        }
+        if (!$this->checkColumnExist('user', 'role'))
+            $db->createCommand()->addColumn('user', 'role', 'TINYINT(1) UNSIGNED NOT NULL');
+        if (!$this->checkColumnExist('user', 'balance'))
+            $db->createCommand()->addColumn('user', 'balance', 'FLOAT(10, 2)');
 
       //new table for operations (transactions)
-        //$table_operation = $db->schema->getTable('operation');  //firstly define existing of table
-        //if (is_object($table_operation)) {                      //if exist
-        //    $db->createCommand()->dropTable('operation');       //drop table
-        //    $table_operation = null;
-        //}
-        //if ($table_operation === null) {                        //then create new table
         if (!$this->checkTableExist('operation')) {                        //then create new table
             $db->createCommand()->createTable('operation', array(
                     'id'         => 'INT(11) UNSIGNED NOT NULL AUTO_INCREMENT',
@@ -61,6 +44,28 @@ class FinanceModule extends BaseModule
                 ),
                 'ENGINE=MYISAM CHARSET=utf8'
             );
+            
+            //add system user account;
+            if (!User::model()->exists('id = :id', array(':id'=>UserFinance::SYSTEM_ID))) {
+                $db->createCommand('SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO"')->execute();
+                $now = new CDbExpression('NOW()');
+                $db->createCommand()->insert('user', array(
+                    'id'=>UserFinance::SYSTEM_ID,
+                    'username'=>'system',
+                    'password'=>'',
+                    'email'=>'',
+                    'password'=>'',
+                    'created_at'=>$now,
+                    'last_login'=>$now,
+                    'login_ip'=>'',
+                    'recovery_key'=>'',
+                    'recovery_password'=>'',
+                    'login_ip'=>'',
+                    //'role'=>0,
+                ));
+                $db->createCommand('SET SQL_MODE = ""')->execute();
+            }
+            //set all balances to 0;
             $db->createCommand()->update('user', array('balance'=>0));
         }
     } 

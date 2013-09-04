@@ -98,7 +98,7 @@ class Operation extends CActiveRecord
         
 		$criteria->compare('id',$this->id);
 		$criteria->compare('created',$this->created,true);
-		//$criteria->compare('user_id',$this->user_id);
+		
         $criteria->compare('username',$this->username,true);
 		$criteria->compare('t.role',$this->role);
 		$criteria->compare('type',$this->type);

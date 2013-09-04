@@ -8,7 +8,6 @@ class FinanceController extends SAdminController
     
     public function actionIndex()
     {
-        //DebugBreak();
         $model = new UserFinance('search');
         $model->unsetAttributes();
 
@@ -17,13 +16,9 @@ class FinanceController extends SAdminController
 
         $dataProvider = $model->nosystem()->onlyfinance()->search();
         $dataProvider->pagination->pageSize = Yii::app()->settings->get('core', 'productsPerPageAdmin');
-        //DebugBreak();
+        
         $system = User::model()->findByPk(UserFinance::SYSTEM_ID); //get system user
         
-//        Yii::import('application.modules.core.CoreModule');
-//        $modelSystem = new SystemSettingsForm;
-//        $form = new STabbedForm('_form', $model);
-//        $form = new CTabView('_form', $model);
         $this->render('index', array(
             'model'=>$model,
             'dataProvider'=>$dataProvider,
@@ -45,11 +40,7 @@ class FinanceController extends SAdminController
         if(Yii::app()->request->isPostRequest) {
             if ($this->process($operation)) {
                 $this->setFlashMessage(Yii::t('UsersModule.core', 'Изменения успешно сохранены'));
-
-                //if (isset($_POST['REDIRECT']))
-                //    $this->smartRedirect($model);
-                //else
-                    $this->redirect(array('index'));
+                $this->redirect(array('index'));
             }
         } else {
             $operation->user_id = $model->id;
@@ -106,7 +97,7 @@ class FinanceController extends SAdminController
                 $source = $user;
             else if ($model->role == UserFinance::ROLE_WORKER && $model->type == UserFinance::OPERATION_WITHDRAW)
                 $source = $user;
-            //DebugBreak();    
+            
             //check source account amount
             if (is_object($source) /*&& $model->type == UserFinance::OPERATION_WITHDRAW*/ && $source->balance < $model->amount)
                 $model->addError('amount', 'Баланса источника не хватает для выполнения операции');
