@@ -28,6 +28,7 @@ class FinanceModule extends BaseModule
         $db->createCommand()->addColumn('user', 'role', 'TINYINT(1) UNSIGNED NOT NULL');
         $db->createCommand()->addColumn('user', 'balance', 'FLOAT(10, 2)');
         //new table for operations (transactions)
+        $db->createCommand()->
         $db->createCommand()->createTable('operation', array(
                 'id'         => 'INT(11) UNSIGNED NOT NULL AUTO_INCREMENT',
                 'created'    => 'DATETIME NOT NULL',
@@ -36,6 +37,7 @@ class FinanceModule extends BaseModule
                 'type'       => 'TINYINT(1) NOT NULL',
                 'amount'     => 'FLOAT(10, 2) NOT NULL',
                 'comment'    => 'TEXT DEFAULT NULL',
+                'trans_id'   => 'VARCHAR(255)',
                 'PRIMARY KEY (id)',
             ),
             'ENGINE=MYISAM CHARSET=utf8'
