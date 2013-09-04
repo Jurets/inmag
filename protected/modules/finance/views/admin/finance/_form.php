@@ -57,6 +57,8 @@ return array(
                 'role'=>array('type'=>'hidden'),
                 'type'=>array('type'=>'hidden'),
                 'amount'=>array('type'=>'text'),
+                'trans_id'=>array('type'=>'text'),
+                'comment'=>array('type'=>'textarea'),
             ),
         ),
 //        'systemBalance'=>array(
