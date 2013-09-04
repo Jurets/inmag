@@ -1,24 +1,31 @@
 <style type="text/css">
-.image-button-position-up img{     
+.image-button-position-up img{
+     
      width: 14px;
      height: 14px;
      background-position: -192px -144px;
 }
 </style>
 <?php
+//DebugBreak();
 /**
  * Display finance list
  *
  * @var $model Finance
  **/
 
-$this->pageHeader = Yii::t('FinanceModule.core', 'Операции');
+$this->pageHeader = Yii::t('FinanceModule.core', 'Финансы. Операции');
 
 $this->breadcrumbs = array(
 	'Home'=>$this->createUrl('/admin'),
-	Yii::t('FinanceModule.core', 'Операции'),
+	Yii::t('FinanceModule.core', 'Финансы')=>$this->createUrl('/admin/finance'),
+    Yii::t('FinanceModule.core', 'Операции'),
 );
+
+    $systemBalance = $system->balance;
+    
 ?>
+<span><?php echo Yii::t('FinanceModule.core', 'Баланс системы:') ?> <strong><?php echo $systemBalance ?></strong></span>
 
 <?
 /*
@@ -37,8 +44,7 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
         ),
     ));
 */
-    $systemBalance = $system->balance;
-
+    //DebugBreak();
     $this->widget('ext.sgridview.SGridView', array(
         'dataProvider'=>$dataProvider,
         'id'=>'usersListGrid',
