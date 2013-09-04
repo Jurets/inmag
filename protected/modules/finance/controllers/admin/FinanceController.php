@@ -15,7 +15,7 @@ class FinanceController extends SAdminController
         if (!empty($_GET['UserFinance']))
             $model->attributes = $_GET['UserFinance'];
 
-        $dataProvider = $model->search();
+        $dataProvider = $model->nosystem()->onlyfinance()->search();
         $dataProvider->pagination->pageSize = Yii::app()->settings->get('core', 'productsPerPageAdmin');
         //DebugBreak();
         $system = User::model()->findByPk(UserFinance::SYSTEM_ID); //get system user

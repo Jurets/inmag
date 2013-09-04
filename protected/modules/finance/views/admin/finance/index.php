@@ -14,13 +14,18 @@
  * @var $model Finance
  **/
 
-$this->pageHeader = Yii::t('FinanceModule.core', 'Операции');
+$this->pageHeader = Yii::t('FinanceModule.core', 'Финансы. Операции');
 
 $this->breadcrumbs = array(
 	'Home'=>$this->createUrl('/admin'),
-	Yii::t('FinanceModule.core', 'Операции'),
+	Yii::t('FinanceModule.core', 'Финансы')=>$this->createUrl('/admin/finance'),
+    Yii::t('FinanceModule.core', 'Операции'),
 );
+
+    $systemBalance = $system->balance;
+    
 ?>
+<span><?php echo Yii::t('FinanceModule.core', 'Баланс системы:') ?> <strong><?php echo $systemBalance ?></strong></span>
 
 <?
 /*
@@ -40,8 +45,6 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
     ));
 */
     //DebugBreak();
-    $systemBalance = $system->balance;
-
     $this->widget('ext.sgridview.SGridView', array(
         'dataProvider'=>$dataProvider,
         'id'=>'usersListGrid',

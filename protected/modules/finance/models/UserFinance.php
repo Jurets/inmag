@@ -81,6 +81,13 @@ class UserFinance extends User
 
     public function scopes() {
         return array(
+            'onlyfinance' => array(
+                'condition' => 'role in (:role1, :role2)',
+                'params' => array(
+                    ':role1' => self::ROLE_CUSTOMER,
+                    ':role2' => self::ROLE_WORKER,
+                )
+            ),
             'nosystem' => array(
                 'condition' => 'id <> :id',
                 'params' => array(

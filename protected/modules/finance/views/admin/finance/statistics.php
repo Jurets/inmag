@@ -8,10 +8,11 @@
 
 //Yii::app()->clientScript->registerScriptFile($this->module->assetsUrl.'/admin/rating.index.js');
 
-$this->pageHeader = Yii::t('FinanceModule.core', 'Statistics');
+$this->pageHeader = Yii::t('FinanceModule.core', 'Финансы. Статистика');
 
 $this->breadcrumbs = array(
     'Home'=>$this->createUrl('/admin'),
+    Yii::t('FinanceModule.core', 'Финансы')=>$this->createUrl('/admin/finance'),
     Yii::t('FinanceModule.core', 'Statistics'),
 );
 ?>
