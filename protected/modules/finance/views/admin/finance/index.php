@@ -1,13 +1,11 @@
 <style type="text/css">
-.image-button-position-up img{
-     
+.image-button-position-up img{     
      width: 14px;
      height: 14px;
      background-position: -192px -144px;
 }
 </style>
 <?php
-//DebugBreak();
 /**
  * Display finance list
  *
@@ -39,7 +37,6 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
         ),
     ));
 */
-    //DebugBreak();
     $systemBalance = $system->balance;
 
     $this->widget('ext.sgridview.SGridView', array(
