@@ -9,15 +9,15 @@
 	));
     
     $operation = $form['operation']->model;
-    $breadCrumbs = $operation->operationName;
+    $title = $operation->operationName;
     
-    $title =    $model->role == 3 ? ($operation->type == 1 ? Yii::t('FinanceModule.core', 'Пополнить из системы') : Yii::t('FinanceModule.core', 'Снятие со счета исполнителя')) :
-                                    ($operation->type == 1 ? Yii::t('FinanceModule.core', 'Пополнение счета заказчика') : Yii::t('FinanceModule.core', 'Списать в систему'));
+/*    $title =    $model->role == 3 ? ($operation->type == 1 ? Yii::t('FinanceModule.core', 'Пополнить из системы') : Yii::t('FinanceModule.core', 'Снятие со счета исполнителя')) :
+                                    ($operation->type == 1 ? Yii::t('FinanceModule.core', 'Пополнение счета заказчика') : Yii::t('FinanceModule.core', 'Списать в систему'));*/
 	
 	$this->breadcrumbs = array(
 		'Home'=>$this->createUrl('/admin'),
 		Yii::t('FinanceModule.core', 'Операции')=>$this->createUrl('index'),
-		$breadCrumbs
+		$title
 	);
 
 	$this->pageHeader = $title;

@@ -13,7 +13,8 @@ class UserFinance extends User
     const OPERATION_DEPOSIT = 1;   //пополнение счета 
     const OPERATION_WITHDRAW = 2;  //снятие со счета
     
-    public $operation;
+    public $operationType;
+    public $systemBalance;
     
     /**
      * Returns the static model of the specified AR class.
@@ -27,7 +28,7 @@ class UserFinance extends User
     public function rules()
     {
         return CMap::mergeArray(parent::rules(), array(
-            array('roleName', 'safe'),
+            array('roleName, systemBalance', 'safe'),
             array('role, balance, id', 'numerical'),
             array('role, balance, operation', 'safe', 'on'=>'search'),
         ));
@@ -36,19 +37,20 @@ class UserFinance extends User
     public function attributeLabels()
     {
         return CMap::mergeArray(parent::attributeLabels(), array(
-            'balance' => Yii::t('FinanceModule.core', 'Balance'),
-            'role'    => Yii::t('FinanceModule.core', 'Role'),
-            'roleName'=> Yii::t('FinanceModule.core', 'Role'),
+            'balance' => Yii::t('FinanceModule.core', 'Баланс'),
+            'role'    => Yii::t('FinanceModule.core', 'Роль'),
+            'roleName'=> Yii::t('FinanceModule.core', 'Роль'),
+            'systemBalance'=> Yii::t('FinanceModule.core', 'Баланс Системы'),
         ));        
     }
     
     public static function getRoleText($id) 
     {
         switch ($id) {
-            case self::ROLE_MODERATOR: $rolename = Yii::t('FinanceModule.core', 'Admin'); break;
-            case self::ROLE_WORKER: $rolename = Yii::t('FinanceModule.core', 'Worker'); break;
-            case self::ROLE_CUSTOMER: $rolename = Yii::t('FinanceModule.core', 'Customer'); break;
-            default: $rolename = Yii::t('FinanceModule.core', 'Unknown');
+            case self::ROLE_MODERATOR: $rolename = Yii::t('FinanceModule.core', 'Админ'); break;
+            case self::ROLE_WORKER: $rolename = Yii::t('FinanceModule.core', 'Исполнитель'); break;
+            case self::ROLE_CUSTOMER: $rolename = Yii::t('FinanceModule.core', 'Заказчик'); break;
+            default: $rolename = Yii::t('FinanceModule.core', 'Неизвестен');
         }
         return $rolename;
     }
@@ -56,10 +58,10 @@ class UserFinance extends User
     public function getRoleName() 
     {
         switch ($this->role) {
-            case self::ROLE_MODERATOR: $rolename = Yii::t('FinanceModule.core', 'Admin'); break;
-            case self::ROLE_WORKER: $rolename = Yii::t('FinanceModule.core', 'Worker'); break;
-            case self::ROLE_CUSTOMER: $rolename = Yii::t('FinanceModule.core', 'Customer'); break;
-            default: $rolename = Yii::t('FinanceModule.core', 'Unknown');
+            case self::ROLE_MODERATOR: $rolename = Yii::t('FinanceModule.core', 'Админ'); break;
+            case self::ROLE_WORKER: $rolename = Yii::t('FinanceModule.core', 'Исполнитель'); break;
+            case self::ROLE_CUSTOMER: $rolename = Yii::t('FinanceModule.core', 'Заказчик'); break;
+            default: $rolename = Yii::t('FinanceModule.core', 'Неизвестен');
         }
         return $rolename;
     }
@@ -68,8 +70,8 @@ class UserFinance extends User
     {
         return array(
             //Yii::t('FinanceModule.core', 'Admin'),
-            3=>Yii::t('FinanceModule.core', 'Worker'),
-            4=>Yii::t('FinanceModule.core', 'Customer'),
+            3=>Yii::t('FinanceModule.core', 'Исполнитель'),
+            4=>Yii::t('FinanceModule.core', 'Заказчик'),
         );
     }
     
@@ -116,5 +118,11 @@ class UserFinance extends User
         return new CActiveDataProvider($this, array(
                 'criteria'=>$criteria,
         ));
-    }    
+    }
+    
+    public function getSystemBalance()
+    {
+        $system = self::model()->findByPk(self::SYSTEM_ID);
+        return $system->balance;
+    }
 }
