@@ -118,7 +118,9 @@ class Operation extends CActiveRecord
     public static function getCSort()
     {
         $sort = new CSort;
-        //$sort->defaultOrder = 't.created DESC';
+        $sort->defaultOrder = array(
+                'created'=>CSort::SORT_DESC,
+            );
         $sort->attributes=array(
             '*',
             'username' => array(
