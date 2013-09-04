@@ -18,22 +18,6 @@ $this->breadcrumbs = array(
 ?>
 
 <?
-/*
-$this->sidebarContent = $this->renderPartial('/_menu', null, true);
-
-    $this->topButtons = $this->widget('application.modules.admin.widgets.SAdminTopButtons', array(
-        'template'=>array('new'),
-        'elements'=>array(
-            'new'=>array(
-                'link'=>$this->createUrl('create'),
-                'title'=>Yii::t('FinanceModule.core', 'Создать пользователя'),
-                'options'=>array(
-                    'icons'=>array('primary'=>'ui-icon-person')
-                )
-            ),
-        ),
-    ));
-*/
     $dateFilter = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
         'name'=>'Operation[created]',
         'value'=>$model->created,
@@ -82,6 +66,16 @@ $this->sidebarContent = $this->renderPartial('/_menu', null, true);
             ),
             array(
                 'name'=>'amount',
+                'type'=>'raw',
+//                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
+            ),
+            array(
+                'name'=>'trans_id',
+                'type'=>'raw',
+//                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
+            ),
+            array(
+                'name'=>'comment',
                 'type'=>'raw',
 //                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
             ),

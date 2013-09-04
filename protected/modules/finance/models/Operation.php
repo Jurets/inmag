@@ -103,6 +103,7 @@ class Operation extends CActiveRecord
 		$criteria->compare('t.role',$this->role);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('amount',$this->amount);
+        $criteria->compare('trans_id',$this->trans_id,true);
 		$criteria->compare('comment',$this->comment,true);
 
 		return new CActiveDataProvider($this, array(
