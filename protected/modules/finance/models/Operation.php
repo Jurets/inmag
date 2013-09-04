@@ -73,12 +73,12 @@ class Operation extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'created' => Yii::t('FinanceModule.core', 'Created'),
-			'user_id' => Yii::t('FinanceModule.core', 'User'),
-			'role' => Yii::t('FinanceModule.core', 'Role'),
-			'type' => Yii::t('FinanceModule.core', 'Type'),
-			'amount' => Yii::t('FinanceModule.core', 'Amount'),
-			'comment' => Yii::t('FinanceModule.core', 'Comment'),
+			'created' => Yii::t('FinanceModule.core', 'Дата Операции'),
+			'user_id' => Yii::t('FinanceModule.core', 'Пользователь'),
+			'role' => Yii::t('FinanceModule.core', 'Роль'),
+			'type' => Yii::t('FinanceModule.core', 'Тип Операции'),
+			'amount' => Yii::t('FinanceModule.core', 'Сумма'),
+			'comment' => Yii::t('FinanceModule.core', 'Коментарий'),
 		);
 	}
 
@@ -130,39 +130,39 @@ class Operation extends CActiveRecord
     public function getRoleName() 
     {
         switch ($this->role) {
-            case UserFinance::ROLE_MODERATOR: $rolename = Yii::t('FinanceModule.core', 'Admin'); break;
-            case UserFinance::ROLE_WORKER: $rolename = Yii::t('FinanceModule.core', 'Worker'); break;
-            case UserFinance::ROLE_CUSTOMER: $rolename = Yii::t('FinanceModule.core', 'Customer'); break;
-            default: $rolename = Yii::t('FinanceModule.core', 'Unknown');
+            case UserFinance::ROLE_MODERATOR: $rolename = Yii::t('FinanceModule.core', 'Админ'); break;
+            case UserFinance::ROLE_WORKER: $rolename = Yii::t('FinanceModule.core', 'Исполнитель'); break;
+            case UserFinance::ROLE_CUSTOMER: $rolename = Yii::t('FinanceModule.core', 'Заказчик'); break;
+            default: $rolename = Yii::t('FinanceModule.core', 'Неизвестен');
         }
         return $rolename;
     }
     
-    //
+
     public static function getOperationText($role, $type) 
     {
         if ($role == 3 && $type == 1)
-            $opname = Yii::t('FinanceModule.core', 'Charge the worker account');
+            $opname = Yii::t('FinanceModule.core', 'Пополнение счета исполнителя'); 
         else if ($role == 3 && $type == 2)
-            $opname = Yii::t('FinanceModule.core', 'Debit the worker account');
+            $opname = Yii::t('FinanceModule.core', 'Снятие со счета исполнителя');
         else if ($role == 4 && $type == 1)
-            $opname = Yii::t('FinanceModule.core', 'Charge the customer account');
+            $opname = Yii::t('FinanceModule.core', 'Пополнение счета заказчика');
         else if ($role == 4 && $type == 2)
-            $opname = Yii::t('FinanceModule.core', 'Debit the customer account');
+            $opname = Yii::t('FinanceModule.core', 'Снятие со счета заказчика');
         return $opname;
     }
 
-    //
+    
     public function getOperationName()
     {
         if ($this->role == 3 && $this->type == 1)
-            $opname = Yii::t('FinanceModule.core', 'Charge the worker account');
+            $opname = Yii::t('FinanceModule.core', 'Пополнение счета исполнителя'); 
         else if ($this->role == 3 && $this->type == 2)
-            $opname = Yii::t('FinanceModule.core', 'Debit the worker account');
+            $opname = Yii::t('FinanceModule.core', 'Снятие со счета исполнителя');
         else if ($this->role == 4 && $this->type == 1)
-            $opname = Yii::t('FinanceModule.core', 'Charge the customer account');
+            $opname = Yii::t('FinanceModule.core', 'Пополнение счета заказчика');
         else if ($this->role == 4 && $this->type == 2)
-            $opname = Yii::t('FinanceModule.core', 'Debit the customer account');
+            $opname = Yii::t('FinanceModule.core', 'Снятие со счета заказчика');
         return $opname;
     }
     
