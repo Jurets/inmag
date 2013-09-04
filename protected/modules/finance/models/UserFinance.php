@@ -71,8 +71,8 @@ class UserFinance extends User
     {
         return array(
             //Yii::t('FinanceModule.core', 'Admin'),
-            3=>Yii::t('FinanceModule.core', 'Исполнитель'),
-            4=>Yii::t('FinanceModule.core', 'Заказчик'),
+            self::ROLE_WORKER=>Yii::t('FinanceModule.core', 'Исполнитель'),
+            self::ROLE_CUSTOMER=>Yii::t('FinanceModule.core', 'Заказчик'),
         );
     }
     
