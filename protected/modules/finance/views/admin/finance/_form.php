@@ -4,8 +4,9 @@
  * User create/update form data 
  */
 Yii::import('zii.widgets.jui.CJuiDatePicker');
-$title=$this->model->role == 3 ? ($this->model->operationType == 1 ? Yii::t('FinanceModule.core', 'Пополнить из системы') : Yii::t('FinanceModule.core', 'Снятие со счета исполнителя')) :
-                                 ($this->model->operationType == 1 ? Yii::t('FinanceModule.core', 'Пополнение счета заказчика') : Yii::t('FinanceModule.core', 'Списать в систему'));
+$title = $this->model->role == UserFinance::ROLE_WORKER ? 
+    ($this->model->operationType == UserFinance::OPERATION_DEPOSIT ? Yii::t('FinanceModule.core', 'Пополнить из системы') : Yii::t('FinanceModule.core', 'Снятие со счета исполнителя')) :
+    ($this->model->operationType == UserFinance::OPERATION_DEPOSIT ? Yii::t('FinanceModule.core', 'Пополнение счета заказчика') : Yii::t('FinanceModule.core', 'Списать в систему'));
 
 return array(
 	'id'=>'userUpdateForm',

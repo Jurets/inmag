@@ -78,20 +78,25 @@ class FinanceModule extends BaseModule
     {
         $db = Yii::app()->db;
         //add new columns in table user
-        if ($this->checkColumnExist('user', 'role'))
-            $db->createCommand()->dropColumn('user', 'role');
-        if ($this->checkColumnExist('user', 'role'))
-            $db->createCommand()->dropColumn('user', 'balance');
+        if ($this->checkColumnExist('user', 'role')) {
+            throw New Exception(Yii::t('UsersModule.core', 'Колонка role таблицы user не удалена! Удалите её вручную'));
+            //$db->createCommand()->dropColumn('user', 'role');
+        }
+        if ($this->checkColumnExist('user', 'balance')) {
+            throw New Exception(Yii::t('UsersModule.core', 'Колонка balance таблицы user не удалена! Удалите её вручную'));
+            //$db->createCommand()->dropColumn('user', 'balance');
+        }
         //new table for operations (transactions)
-        if ($this->checkTableExist('operation'))
-            $db->createCommand()->dropTable('operation');
+        if ($this->checkTableExist('operation')) {
+            throw New Exception(Yii::t('UsersModule.core', 'Таблица operation не удалена! Удалите её вручную'));
+            //$db->createCommand()->dropTable('operation');
+        }
     }
  
     //проверка: существует ли таблица
     // - если да - вернёт объект таблицы, нет - null
     private function checkTableExist($tableName) {
         $db = Yii::app()->db; 
-        //DebugBreak();
         return ($table = $db->schema->getTable($tableName)) ? $table : null;
     }
     

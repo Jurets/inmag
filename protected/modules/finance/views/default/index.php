@@ -24,15 +24,12 @@
                 'name'=>'type',
                 'type'=>'raw',
                 'filter'=>false,
-                //'value'=>'Operation::getOperationName($data->role, $data->type)',
                 'value'=>'$data->operationName',
-                //'filter'=>Operation::getRoleNames()
             ),
             array(
                 'name'=>'amount',
                 'type'=>'raw',
                 'filter'=>false,
-//                'value'=>'CHtml::link(CHtml::encode($data->username),array("update","id"=>$data->id))',
             ),
         ),
     ));

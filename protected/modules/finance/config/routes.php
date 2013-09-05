@@ -6,6 +6,5 @@
 return array(
     '/admin/finance'=>'/finance/admin/finance',
 	'/admin/finance/<action>'=>'/finance/admin/finance/<action>',
-//    'finance/ajax/rateProduct/<id>'=>array('rating/ajax/rateProduct'),
     '/users/finance'=>array('finance/default/index'),
 );

@@ -5,7 +5,6 @@
 		'form'=>$form,
         'template'=>array('history_back','save'),
         'listAction'=>'operationView',
-//		'deleteAction'=>$this->createUrl('/users/admin/default/delete', array('id'=>$model->id))
 	));
     
     $operation = $form['operation']->model;

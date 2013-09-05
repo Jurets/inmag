@@ -10,10 +10,14 @@ class DefaultController extends Controller
     public function beforeAction($action)
     {
         if(Yii::app()->user->isGuest)
-            throw new CHttpException(404, Yii::t('FinanceModule.core', 'Ошибка доступа.'));
+            throw new CHttpException(404, Yii::t('FinanceModule.core', 'Ошибка доступа. Вы не авторизованы'));
         return true;
     }
     
+    /**
+    * show operation of user
+    * 
+    */
     public function actionIndex()
     {
         $userId = Yii::app()->user->id;

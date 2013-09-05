@@ -131,6 +131,10 @@ class Operation extends CActiveRecord
         return $sort;
     }
     
+    /**
+    * Get role name by role id
+    * 
+    */
     public function getRoleName() 
     {
         switch ($this->role) {
@@ -143,31 +147,34 @@ class Operation extends CActiveRecord
     }
     
 
-    public static function getOperationText($role, $type) 
-    {
-        if ($role == 3 && $type == 1)
-            $opname = Yii::t('FinanceModule.core', 'Пополнение счета исполнителя'); 
-        else if ($role == 3 && $type == 2)
-            $opname = Yii::t('FinanceModule.core', 'Снятие со счета исполнителя');
-        else if ($role == 4 && $type == 1)
-            $opname = Yii::t('FinanceModule.core', 'Пополнение счета заказчика');
-        else if ($role == 4 && $type == 2)
-            $opname = Yii::t('FinanceModule.core', 'Снятие со счета заказчика');
-        return $opname;
-    }
-
-    
+    /**
+    * get operation name by operation type id
+    * 
+    */
     public function getOperationName()
     {
-        if ($this->role == 3 && $this->type == 1)
+        if ($this->role == UserFinance::ROLE_WORKER && $this->type == UserFinance::OPERATION_DEPOSIT)
             $opname = Yii::t('FinanceModule.core', 'Пополнение счета исполнителя'); 
-        else if ($this->role == 3 && $this->type == 2)
+        else if ($this->role == UserFinance::ROLE_WORKER && $this->type == UserFinance::OPERATION_WITHDRAW)
             $opname = Yii::t('FinanceModule.core', 'Снятие со счета исполнителя');
-        else if ($this->role == 4 && $this->type == 1)
+        else if ($this->role == UserFinance::ROLE_CUSTOMER && $this->type == UserFinance::OPERATION_DEPOSIT)
             $opname = Yii::t('FinanceModule.core', 'Пополнение счета заказчика');
-        else if ($this->role == 4 && $this->type == 2)
+        else if ($this->role == UserFinance::ROLE_CUSTOMER && $this->type == UserFinance::OPERATION_WITHDRAW)
             $opname = Yii::t('FinanceModule.core', 'Снятие со счета заказчика');
         return $opname;
     }
-    
+ 
+ 
+    /**
+    * get operation name by operation type id
+    * 
+    */
+    public static function getOperationNames()
+    {
+        return array(
+            UserFinance::OPERATION_DEPOSIT => Yii::t('FinanceModule.core', 'Пополнение'),
+            UserFinance::OPERATION_WITHDRAW => Yii::t('FinanceModule.core', 'Снятие') 
+        );
+    }
+
 }

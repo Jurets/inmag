@@ -15,7 +15,7 @@ class UserFinance extends User
     const OPERATION_WITHDRAW = 2;  //снятие со счета
     
     public $operationType;
-    public $systemBalance;
+    private $_systemBalance = null;
     
     /**
      * Returns the static model of the specified AR class.
@@ -45,17 +45,10 @@ class UserFinance extends User
         ));        
     }
     
-    public static function getRoleText($id) 
-    {
-        switch ($id) {
-            case self::ROLE_MODERATOR: $rolename = Yii::t('FinanceModule.core', 'Админ'); break;
-            case self::ROLE_WORKER: $rolename = Yii::t('FinanceModule.core', 'Исполнитель'); break;
-            case self::ROLE_CUSTOMER: $rolename = Yii::t('FinanceModule.core', 'Заказчик'); break;
-            default: $rolename = Yii::t('FinanceModule.core', 'Неизвестен');
-        }
-        return $rolename;
-    }
-
+    /**
+    * getter for role name (by role id)
+    * 
+    */
     public function getRoleName() 
     {
         switch ($this->role) {
@@ -67,6 +60,10 @@ class UserFinance extends User
         return $rolename;
     }
     
+    /**
+    * getter for role names array (e.g. for dropdowns) 
+    * 
+    */
     public static function getRoleNames() 
     {
         return array(
@@ -76,12 +73,20 @@ class UserFinance extends User
         );
     }
     
+    /**
+    * default scope for customer/worker selection
+    * 
+    */
     public function defaultScope() {
         return array(
             'order' => 'id',
         );
     }
 
+    /**
+    * other scopes for customer/worker selection
+    * 
+    */
     public function scopes() {
         return array(
             'onlyfinance' => array(
@@ -114,6 +119,7 @@ class UserFinance extends User
         $criteria->compare('created_at',$this->created_at, true);
         $criteria->compare('last_login',$this->last_login);
         $criteria->compare('banned',$this->banned);
+        $criteria->compare('balance',$this->balance);
         $criteria->compare('role',$this->role);
 
         return new CActiveDataProvider($this, array(
@@ -121,9 +127,16 @@ class UserFinance extends User
         ));
     }
     
+    /**
+    * get balance of system account
+    * 
+    */
     public function getSystemBalance()
     {
-        $system = self::model()->findByPk(self::SYSTEM_ID);
-        return $system->balance;
+        if ($this->_systemBalance === null) {
+            $system = self::model()->findByPk(self::SYSTEM_ID);
+            $this->_systemBalance = $system->balance;
+        }
+        return $this->_systemBalance;
     }
 }

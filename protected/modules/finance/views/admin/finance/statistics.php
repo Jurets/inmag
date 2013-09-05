@@ -6,8 +6,6 @@
  * @var $model Finance
  **/
 
-//Yii::app()->clientScript->registerScriptFile($this->module->assetsUrl.'/admin/rating.index.js');
-
 $this->pageHeader = Yii::t('FinanceModule.core', 'Финансы. Статистика');
 
 $this->breadcrumbs = array(
@@ -22,11 +20,10 @@ $this->breadcrumbs = array(
         'name'=>'Operation[created]',
         'value'=>$model->created,
         'options'=>array(
-            'dateFormat'=>'yy-mm-dd'/*.date('H:i:s')*/,
+            'dateFormat'=>'yy-mm-dd',
         ),
         'htmlOptions' => array(
             'id'=>'Operation_created',
-            //'style'=>'background-image: url("../images/calendar.png");'
         ),
     ), true);
     
@@ -59,7 +56,7 @@ $this->breadcrumbs = array(
                 'name'=>'type',
                 'type'=>'raw',
                 'value'=>'$data->operationName',
-                //'filter'=>Operation::getRoleNames()
+                'filter'=>Operation::getOperationNames(),
             ),
             array(
                 'name'=>'amount',
@@ -77,7 +74,7 @@ $this->breadcrumbs = array(
     ));
 
 
-Yii::app()->clientScript->registerScript('re-install-date-picker', "
+    Yii::app()->clientScript->registerScript('re-install-date-picker', "
         function reinstallDatePicker(id, data) {
             $('#Operation_created').datepicker({dateFormat: 'yy-mm-dd'});
         }

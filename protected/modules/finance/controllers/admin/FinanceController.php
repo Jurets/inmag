@@ -17,23 +17,24 @@ class FinanceController extends SAdminController
         $dataProvider = $model->nosystem()->onlyfinance()->search();
         $dataProvider->pagination->pageSize = Yii::app()->settings->get('core', 'productsPerPageAdmin');
         
-        $system = User::model()->findByPk(UserFinance::SYSTEM_ID); //get system user
-        
         $this->render('index', array(
             'model'=>$model,
             'dataProvider'=>$dataProvider,
-            'system'=>$system,
         ));
     }
     
-    public function actionOperationView()
+    /**
+    * show operation form
+    * 
+    */
+    public function actionOperation()
     {
-        $type = Yii::app()->request->getParam('operation');
-        $model = UserFinance::model()->findByPk($_GET['user_id']);
-        $model->systemBalance = $model->getSystemBalance();
+        $type = Yii::app()->request->getParam('id');
+        $user_id = $_GET['user_id'];
+        $model = UserFinance::model()->findByPk($user_id);
         $model->operationType = $type;
         if (!$model)
-            throw new CHttpException(400, 'Bad request.');
+            throw new CHttpException(400, Yii::t('UsersModule.core', 'Не найден пользователь') . '(ID = ' . $user_id . 'ID = ');
 
         $operation = new Operation();
 
@@ -80,7 +81,6 @@ class FinanceController extends SAdminController
     }
     
     public function process($model) {
-        //$model = New Operation;
         $model->attributes = $_POST['Operation'];
         
         //begin validation
@@ -99,7 +99,7 @@ class FinanceController extends SAdminController
                 $source = $user;
             
             //check source account amount
-            if (is_object($source) /*&& $model->type == UserFinance::OPERATION_WITHDRAW*/ && $source->balance < $model->amount)
+            if (is_object($source) && $source->balance < $model->amount)
                 $model->addError('amount', 'Баланса источника не хватает для выполнения операции');
         }
         
@@ -124,13 +124,13 @@ class FinanceController extends SAdminController
             
             //try to save operation to table
             if (!$model->save(false))
-                throw New Exception('Ошибка при сохранении операции');
+                throw New Exception(Yii::t('UsersModule.core', 'Ошибка при сохранении операции'));
 
             if (!$user->save(false))
-                throw New Exception('Ошибка при изменении баланса пользователя');
+                throw New Exception(Yii::t('UsersModule.core', 'Ошибка при изменении баланса пользователя'));
             
             if (!$system->save(false))
-                throw New Exception('Ошибка при изменении баланса системы');
+                throw New Exception(Yii::t('UsersModule.core', 'Ошибка при изменении баланса системы'));
                 
             $transaction->commit();           
         }
