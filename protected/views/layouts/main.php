@@ -1,12 +1,16 @@
 <?php
-
 	Yii::import('application.modules.store.components.SCompareProducts');
 	Yii::import('application.modules.store.models.wishlist.StoreWishlist');
 
 	$assetsManager = Yii::app()->clientScript;
 	$assetsManager->registerCoreScript('jquery');
-	$assetsManager->registerCoreScript('jquery.ui');
-
+    $assetsManager->registerCoreScript('jquery.ui');
+    
+    //подключение скрипта для проверки поступления/снятия денег со счета
+//    $financeAssetsUrl = Yii::app()->getModule('finance')->assetsUrl;
+//	$assetsManager->registerScriptFile($financeAssetsUrl.'/scripts/finance_check.js');
+    if(!Yii::app()->user->isGuest)
+        Yii::import('application.modules.finance.views.default.jGrowlFinance',true);
 	// jGrowl notifications
 	Yii::import('ext.jgrowl.Jgrowl');
 	Jgrowl::register();

@@ -47,7 +47,7 @@ class Operation extends CActiveRecord
 			array('role, type', 'numerical', 'integerOnly'=>true),
 			array('amount', 'numerical'),
 			array('user_id', 'length', 'max'=>11),
-			array('comment', 'safe'),
+			array('comment, is_msg_shown', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, created, user_id, role, type, amount, comment, username, trans_id', 'safe', 'on'=>'search'),
@@ -175,6 +175,11 @@ class Operation extends CActiveRecord
             UserFinance::OPERATION_DEPOSIT => Yii::t('FinanceModule.core', 'Пополнение'),
             UserFinance::OPERATION_WITHDRAW => Yii::t('FinanceModule.core', 'Снятие') 
         );
+    }
+    
+    public static function getNewOperations($userId)
+    {
+        return Yii::app()->db->createCommand('SELECT * FROM operation WHERE user_id = :user_id AND is_msg_shown = 0 ORDER BY created ASC LIMIT 5')->queryAll(true,array('user_id'=>$userId));
     }
 
 }

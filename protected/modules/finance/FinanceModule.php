@@ -40,6 +40,7 @@ class FinanceModule extends BaseModule
                     'amount'     => 'FLOAT(10, 2) NOT NULL',
                     'trans_id'   => 'VARCHAR(255)',
                     'comment'    => 'TEXT DEFAULT NULL',
+                    'is_msg_shown'=>'TINYINT(1) DEFAULT 0  NOT NULL',
                     'PRIMARY KEY (id)',
                 ),
                 'ENGINE=MYISAM CHARSET=utf8'
@@ -66,7 +67,7 @@ class FinanceModule extends BaseModule
                 $db->createCommand('SET SQL_MODE = ""')->execute();
             }
             //set all balances to 0;
-            $db->createCommand()->update('user', array('balance'=>0));
+//            $db->createCommand()->update('user', array('balance'=>0));
         }
     } 
         
@@ -79,17 +80,20 @@ class FinanceModule extends BaseModule
         $db = Yii::app()->db;
         //add new columns in table user
         if ($this->checkColumnExist('user', 'role')) {
-            throw New Exception(Yii::t('UsersModule.core', 'Колонка role таблицы user не удалена! Удалите её вручную'));
             //$db->createCommand()->dropColumn('user', 'role');
+        }else{
+            throw New Exception(Yii::t('FinanceModule.core', 'Колонка role таблицы user не удалена! Удалите её вручную'));
         }
         if ($this->checkColumnExist('user', 'balance')) {
-            throw New Exception(Yii::t('UsersModule.core', 'Колонка balance таблицы user не удалена! Удалите её вручную'));
             //$db->createCommand()->dropColumn('user', 'balance');
+        }else{
+            throw New Exception(Yii::t('FinanceModule.core', 'Колонка balance таблицы user не удалена! Удалите её вручную'));
         }
         //new table for operations (transactions)
         if ($this->checkTableExist('operation')) {
-            throw New Exception(Yii::t('UsersModule.core', 'Таблица operation не удалена! Удалите её вручную'));
-            //$db->createCommand()->dropTable('operation');
+            $db->createCommand()->dropTable('operation');
+        }else{
+            throw New Exception(Yii::t('FinanceModule.core', 'Таблица operation не удалена! Удалите её вручную'));
         }
     }
  
