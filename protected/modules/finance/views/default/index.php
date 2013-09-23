@@ -9,7 +9,7 @@
     $this->widget('ext.sgridview.SGridView', array(
         'dataProvider'=>$dataProvider,
         'id'=>'operationsListGrid',
-        'afterAjaxUpdate' => 'reinstallDatePicker',
+//        'afterAjaxUpdate' => 'reinstallDatePicker',
         'columns'=>array(
             array(
                 'class'=>'SGridIdColumn',
